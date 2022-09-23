@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head-fragment :: head">
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col menu_fixed">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0;">
+						<a href="index.html" class="site_title"><i
+							class="fa fa-futbol-o"></i> <span>Nessfit</span></a>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<!-- menu profile quick info -->
+					<div th:insert="fragments/perfil-fragment :: perfil"></div>
+					<!-- /menu profile quick info -->
+
+					<br />
+
+					<!-- sidebar menu -->
+					<div th:insert="fragments/sidebar-fragment :: sidebar"></div>
+					<!-- /sidebar menu -->
+
+
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<div th:replace="fragments/topbar-fragment :: topbar"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>Menú Principal</h3>
+
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+					<div class="">
+						<div class="col-md-12 col-sm-12  ">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>Opciones</h2>
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+
+									<div sec:authorize="hasAuthority('ADMINISTRATIVO')"
+										class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Registrar Cliente</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fa fa-user"> </i> Ir
+												</button>
+											</div>
+										</div>
+									</div>
+									<div sec:authorize="hasAuthority('ADMINISTRADOR')"
+										class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Gestión Administrativos</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content text-white">
+												<a th:href="@{/administrador/gestion-adm}"
+													class="btn btn-primary btn-sm"> <i class="fa fa-user">
+												</i> IR
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Gestionar Usuario</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fa fa-user"> </i> Ir
+												</button>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Registrar Instalación</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fa fa-user"> </i> Ir
+												</button>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Gestión de solicitudes</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fa fa-user"> </i> Ir
+												</button>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Estadisticas</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<button type="button" class="btn btn-primary btn-sm">
+													<i class="fa fa-user"> </i> Ir
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- jQuery custom content scroller -->
+	<script
+		th:src="@{/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js}"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/build/js/custom.min.js}"></script>
+
+
+</body>
+</html>
