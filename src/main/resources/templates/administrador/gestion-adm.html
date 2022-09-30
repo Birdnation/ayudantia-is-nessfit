@@ -80,7 +80,7 @@
 											<td th:text="${usuario.email}">Otto</td>
 											<td
 												th:text="${usuario.estado==1?'Habilitado':'Deshabilitado'}">@mdo</td>
-											<td><a class="btn btn-warning">editar</a></td>
+											<td><a th:href="@{/administrador/gestion-adm/editar/{rut} (rut=${usuario.rut})}" class="btn btn-warning">editar</a></td>
 										</tr>
 
 									</tbody>

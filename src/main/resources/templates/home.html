@@ -2,7 +2,6 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/head-fragment :: head">
 </head>
-
 <body class="nav-md">
 	<div class="container body">
 		<div class="main_container">
@@ -12,6 +11,7 @@
 						<a href="index.html" class="site_title"><i
 							class="fa fa-futbol-o"></i> <span>Nessfit</span></a>
 					</div>
+					
 
 					<div class="clearfix"></div>
 
@@ -52,12 +52,11 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="x_content">
-
 									<div sec:authorize="hasAuthority('ADMINISTRATIVO')"
 										class="col-md-3 col-sm-3  ">
 										<div class="x_panel">
 											<div class="x_title">
-												<h2>Registrar Cliente</h2>
+												<h2>Gestión de Clientes</h2>
 												<div class="clearfix"></div>
 											</div>
 											<div class="x_content">
@@ -82,55 +81,18 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-md-3 col-sm-3  ">
+									<div sec:authorize="hasAuthority('ADMINISTRADOR')"
+										class="col-md-3 col-sm-3  ">
 										<div class="x_panel">
 											<div class="x_title">
-												<h2>Gestionar Usuario</h2>
+												<h2>Ver Estadisticas</h2>
 												<div class="clearfix"></div>
 											</div>
-											<div class="x_content">
-												<button type="button" class="btn btn-primary btn-sm">
-													<i class="fa fa-user"> </i> Ir
-												</button>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 col-sm-3  ">
-										<div class="x_panel">
-											<div class="x_title">
-												<h2>Registrar Instalación</h2>
-												<div class="clearfix"></div>
-											</div>
-											<div class="x_content">
-												<button type="button" class="btn btn-primary btn-sm">
-													<i class="fa fa-user"> </i> Ir
-												</button>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 col-sm-3  ">
-										<div class="x_panel">
-											<div class="x_title">
-												<h2>Gestión de solicitudes</h2>
-												<div class="clearfix"></div>
-											</div>
-											<div class="x_content">
-												<button type="button" class="btn btn-primary btn-sm">
-													<i class="fa fa-user"> </i> Ir
-												</button>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-3 col-sm-3  ">
-										<div class="x_panel">
-											<div class="x_title">
-												<h2>Estadisticas</h2>
-												<div class="clearfix"></div>
-											</div>
-											<div class="x_content">
-												<button type="button" class="btn btn-primary btn-sm">
-													<i class="fa fa-user"> </i> Ir
-												</button>
+											<div class="x_content text-white">
+												<a th:href="@{/administrador/gestion-adm}"
+													class="btn btn-primary btn-sm"> <i class="fa fa-user">
+												</i> IR
+												</a>
 											</div>
 										</div>
 									</div>
@@ -165,7 +127,7 @@
 
 	<!-- Custom Theme Scripts -->
 	<script th:src="@{/build/js/custom.min.js}"></script>
-
+	
 
 </body>
 </html>

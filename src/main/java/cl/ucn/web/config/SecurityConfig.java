@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * Bean para encriptar contraseñas con BCrypt
      */
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    BCryptPasswordEncoder passwordEncoder() {
 	return new BCryptPasswordEncoder();
     }
 
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	auth.jdbcAuthentication().dataSource(dataSource)
+	auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
 		// Busca al usuario por el parámetro rut en la base de datos
 		.usersByUsernameQuery("select rut, contrasena, estado from usuarios where rut=?")
 		// Busca el rol asociado al rut
@@ -64,14 +64,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Los recursos estáticos no requieren autenticación
 		.antMatchers("/build/**", "/css/**", "/images/**", "/js/**", "/vendors/**").permitAll()
 		// Las vistas públicas no requieren autenticación
-		.antMatchers("/login**").anonymous()
+		.antMatchers("/iniciarsesion**").anonymous()
 		// Las vistas con el subdominio administrador quedan protegidas al ROL
 		// administrador
 		.antMatchers("/administrador/**").hasAuthority("ADMINISTRADOR")
 		// Todas las demás URLs de la Aplicación requieren autenticación
 		.anyRequest().authenticated()
 		// El formulario de Login redirecciona a la url /login
-		.and().formLogin().loginPage("/login").usernameParameter("rut").passwordParameter("contrasena")
+		.and().formLogin().loginPage("/iniciarsesion").usernameParameter("rut").passwordParameter("contrasena")
+		.loginProcessingUrl("/iniciarsesion")
 		// Si las credenciales son válidas, utiliza el manejador de autenticación
 		.successHandler(new AuthenticationSuccessHandler() {
 
@@ -79,9 +80,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			    Authentication authentication) throws IOException, ServletException {
 			// Tiempo máximo de sesión
-			request.getSession().setMaxInactiveInterval(30);
+			request.getSession().setMaxInactiveInterval(0);
 			// Si la autenticación fue exitosa redirecciona a /home
-			response.sendRedirect("/home");
+			response.sendRedirect("/inicio");
 		    }
 		})
 		// Si las credenciales son inválidas utiliza el manejador de errores
@@ -92,11 +93,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// Si el fallo es una instancia de la excepción BadCredential agrega el flag
 			// novalido
 			if (exception instanceof BadCredentialsException) {
-			    super.setDefaultFailureUrl("/login?novalido");
+			    super.setDefaultFailureUrl("/iniciarsesion?novalido");
 			    // Si el fallo es una instancia de la excepción Disable agrega el flag
 			    // noautorizado
 			} else if (exception instanceof DisabledException) {
-			    super.setDefaultFailureUrl("/login?noautorizado");
+			    super.setDefaultFailureUrl("/iniciarsesion?noautorizado");
 			}
 			super.onAuthenticationFailure(request, response, exception);
 		    }
@@ -107,7 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		    public void handle(HttpServletRequest request, HttpServletResponse response,
 			    AccessDeniedException accessDeniedException) throws IOException, ServletException {
 			// Cualquiera sea el fallo redirecciona a /home
-			response.sendRedirect("/home");
+			response.sendRedirect("/inicio");
 
 		    }
 		});

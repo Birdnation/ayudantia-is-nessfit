@@ -8,9 +8,9 @@ public interface IUsuarioService {
 
     public List<Usuario> verTodosLosUsuarios();
 
-    // public List<Usuario> verAdministrativos();
+    public List<Usuario> verAdministrativos();
 
     public void guardar(Usuario usuario);
 
-    // public Usuario buscarPorRut(String rut);
+    public Usuario buscarPorRut(String rut);
 }

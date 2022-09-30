@@ -11,7 +11,7 @@
 					aria-expanded="false" th:text="${rutUser}"> </a>
 					<div class="dropdown-menu dropdown-usermenu pull-right"
 						aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="javascript:;"> Perfil</a><a
+						<a class="dropdown-item" th:href="@{/perfil}"> Perfil</a><a
 							class="dropdown-item" th:href="@{/cambio}">Cambiar contraseña</a> <a
 							class="dropdown-item" onclick="return confirm('¿Cerrar sesión?');"
 							th:href="@{/logout}"><i class="fa fa-sign-out pull-right"></i>

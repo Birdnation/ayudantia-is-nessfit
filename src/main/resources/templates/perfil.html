@@ -36,7 +36,7 @@
 				<div class="">
 					<div class="page-title">
 						<div class="title_left">
-							<h3>Cambio de contraseña</h3>
+							<h3>PERFIL DEL USUARIO</h3>
 						</div>
 					</div>
 
@@ -48,37 +48,81 @@
 							<div class="x_panel">
 								<div class="x_content">
 									<br />
-									<form th:action="@{/cambio}"
+									<form th:action="@{/perfil}"
 										method="post" id="demo-form2" data-parsley-validate
-										class="form-horizontal form-label-left">
+										class="form-horizontal form-label-left" th:object="${usuario}">
+
+										<div th:if="${#fields.hasErrors('*')}"
+											class='alert alert-danger' role='alert'>
+											Por favor corrija los siguientes errores:
+											<ul>
+												<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+											</ul>
+										</div>
 
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align"
-												for="nuevaContrasena">Nueva contraseña: <span class="required">*</span>
+												for="rut">Rut: <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input th:value="${nuevaContrasena}" name="nuevaContrasena" type="password" required="required" class="form-control"
-													 th:classappend="${msg==null ? '' : 'border-danger' }">
-												<small th:if="${msg != null}" th:text="'Las contraseñas no coinciden'" class="text-danger"></small>
+												<input th:field="*{rut}" type="text" hidden
+													class="form-control ">
+												<input th:field="*{rut}" type="text" disabled="disabled"
+													class="form-control ">
+												<div th:if="${#fields.hasErrors('rut')}"
+													th:errorclass="text-danger" th:errors="*{rut}"></div>
 											</div>
 										</div>
+
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align"
-												for="nuevaContrasenaRepetir">Repetir nueva contraseña: <span class="required">*</span>
+												for="nombre">Nombre: <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input th:value="${nuevaContrasenaRepetir}" name="nuevaContrasenaRepetir" type="password" required="required"
+												<input th:field="*{nombre}" type="text" required="required"
+													class="form-control " th:errorclass="border-danger">
+												<div th:if="${#fields.hasErrors('nombre')}"
+													th:errorclass="text-danger" th:errors="*{nombre}"></div>
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align"
+												for="apellido">Apellido: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input th:field="*{apellido}" type="text"
 													class="form-control ">
 											</div>
 										</div>
 
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align"
+												for="telefono">Teléfono: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input th:field="*{telefono}" type="tel"
+													required="required" class="form-control" th:errorclass="border-danger">
+											</div>
+										</div>
+
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align"
+												for="email">Email: <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input th:field="*{email}" type="text" required="required"
+													class="form-control ">
+											</div>
+										</div>
 										
 
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 											<div class="col-md-6 col-sm-6 offset-md-3">
-												<button class="btn btn-primary" type="button">Cancelar</button>
-												<button type="submit" class="btn btn-success">Actualizar</button>
+												<button class="btn btn-primary" type="button">Cancel</button>
+												<button class="btn btn-primary" type="reset">Reset</button>
+												<button type="submit" class="btn btn-success">Submit</button>
 											</div>
 										</div>
 									</form>

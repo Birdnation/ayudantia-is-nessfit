@@ -9,7 +9,7 @@ import cl.ucn.web.models.Usuario;
 import cl.ucn.web.repositories.IUsuarioRepository;
 
 @Service
-public class UsuarioService implements IUsuarioService {
+public class UsuarioServiceImpl implements IUsuarioService {
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
@@ -19,20 +19,20 @@ public class UsuarioService implements IUsuarioService {
 	return usuarioRepository.findAll();
     }
 
-    /*
-     * @Override public List<Usuario> verAdministrativos() { return
-     * usuarioRepository.findByRolId(2); }
-     */
+    @Override
+    public List<Usuario> verAdministrativos() {
+	return usuarioRepository.findByRolId(2);
+    }
 
     @Override
     public void guardar(Usuario usuario) {
 	usuarioRepository.save(usuario);
     }
 
-//    @Override
-//    public Usuario buscarPorRut(String rut) {
-//	Usuario usuario = usuarioRepository.findByRut(rut);
-//	return usuario;
-//    }
+    @Override
+    public Usuario buscarPorRut(String rut) {
+	Usuario usuario = usuarioRepository.findByRut(rut);
+	return usuario;
+    }
 
 }

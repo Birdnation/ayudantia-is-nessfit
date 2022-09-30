@@ -18,7 +18,9 @@ public class RutValidation implements Validator {
     public void validate(Object target, Errors errors) {
 	Usuario usuario = (Usuario) target;
 
-	// errors.reject("msg", "no valido");
+	// lógica para validar
+
+	// errors.rejectValue("rut", null, "rut no válido");
 
     }
 
