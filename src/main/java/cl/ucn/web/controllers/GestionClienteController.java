@@ -9,9 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cl.ucn.web.models.Rol;
 import cl.ucn.web.models.Usuario;
 import cl.ucn.web.services.IUsuarioService;
-import cl.ucn.web.utils.RutValidation;
 
 @Controller
-//Mapeo de clase (aplica a todas las funciones declaradas.
-@RequestMapping("/administrador/gestion-adm")
-public class GestionAdministrativoController {
+@RequestMapping("/administrativo/gestion-cliente")
+public class GestionClienteController {
 
     /**
      * Inyección del servicio de usuarios
@@ -41,58 +37,19 @@ public class GestionAdministrativoController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private RutValidation validation;
-
-    @InitBinder("usuario")
-    public void initBinder(WebDataBinder binder) {
-	binder.addValidators(validation);
-    }
-
     @GetMapping("")
     public String index(Model model, @RequestParam(name = "rut", required = false) String rut, Pageable page) {
 	if (rut != null) {
-	    model.addAttribute("usuarios", usuarioService.buscarUsuariosPorRut(rut, page, 2));
+	    model.addAttribute("usuarios", usuarioService.buscarUsuariosPorRut(rut, page, 3));
 	} else {
-	    model.addAttribute("usuarios", usuarioService.verAdministrativos(page));
+	    model.addAttribute("usuarios", usuarioService.verClientes(page));
 	}
-	return "administrador/gestion-adm";
-    }
-
-    @GetMapping("/editar/{rut}")
-    public String formEditar(@PathVariable(value = "rut") String rut, Model model) {
-	Usuario usuario = usuarioService.buscarPorRut(rut);
-	model.addAttribute("usuario", usuario);
-	return "/administrador/form-editar-administrativo";
-    }
-
-    @PostMapping("/editar/{rut}")
-    public String formEditarUsuario(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) {
-
-	// paso 1 validaciones
-	// result.rejectValue("rut", null, "rut inválido");
-
-	if (result.hasErrors()) {
-	    return "/administrador/form-editar-administrativo";
-	}
-
-	// paso 2 set atributos no ingresados por usuario
-	usuario.setContrasena(passwordEncoder.encode(usuario.getRut()));
-	usuario.setEstado(1);
-	Rol rolAdministrativo = new Rol();
-	rolAdministrativo.setId(2);
-	usuario.setRol(rolAdministrativo);
-
-	// paso 3 persistencia
-	usuarioService.guardar(usuario);
-
-	// paso 4 redireccionamiento
-	return "redirect:/administrador/gestion-adm";
+	return "administrativo/gestion-clientes";
     }
 
     @GetMapping("/crear")
     public String formUsuario(Usuario usuario) {
-	return "/administrador/form-crear-administrativo";
+	return "/administrativo/form-crear-cliente";
     }
 
     @PostMapping("/crear")
@@ -100,7 +57,6 @@ public class GestionAdministrativoController {
 
 	// paso 1 validaciones
 	// result.rejectValue("rut", null, "rut inválido");
-
 	Usuario existe = usuarioService.buscarPorRut(usuario.getRut());
 
 	if (existe != null) {
@@ -108,22 +64,21 @@ public class GestionAdministrativoController {
 	}
 
 	if (result.hasErrors()) {
-	    return "/administrador/form-crear-administrativo";
+	    return "administrativo/form-crear-cliente";
 	}
 
 	// paso 2 set atributos no ingresados por usuario
 	usuario.setContrasena(passwordEncoder.encode(usuario.getRut()));
 	usuario.setEstado(1);
-	Rol rolAdministrativo = new Rol();
-	rolAdministrativo.setId(2);
-	usuario.setRol(rolAdministrativo);
-	System.out.println(usuario.toString());
+	Rol rolCliente = new Rol();
+	rolCliente.setId(3);
+	usuario.setRol(rolCliente);
 
 	// paso 3 persistencia
 	usuarioService.guardar(usuario);
 
 	// paso 4 redireccionamiento
-	return "redirect:/administrador/gestion-adm";
+	return "redirect:/administrativo/gestion-cliente";
     }
 
     @GetMapping("/estado/{rut}")
@@ -138,7 +93,7 @@ public class GestionAdministrativoController {
 	usuarioService.guardar(usuario);
 
 	// Paso 4 redireccionamiento
-	return "redirect:/administrador/gestion-adm";
+	return "redirect:/administrativo/gestion-cliente";
     }
 
     @ModelAttribute("rutUser")
@@ -148,5 +103,4 @@ public class GestionAdministrativoController {
 
 	return SecurityContextHolder.getContext().getAuthentication().getName();
     }
-
 }

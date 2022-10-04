@@ -37,7 +37,7 @@
 					<div class="page-title">
 						<div class="title_left">
 
-							<h3>Gestión de Administrativos</h3>
+							<h3>Gestión de Instalaciones</h3>
 
 
 						</div>
@@ -53,11 +53,11 @@
 					<div class="col-md-12 col-sm-12  ">
 						<div class="x_panel">
 							<div class="x_title d-flex justify-content-start">
-								<a th:href="@{/administrador/gestion-adm/crear}"
-									class="btn btn-success text-white">Crear Usuario</a>
-								<form th:action="@{/administrador/gestion-adm}">
-									<input class="form-control" name="rut"
-										placeholder="Buscar por rut">
+								<a th:href="@{/administrativo/gestion-instalacion/crear}"
+									class="btn btn-success text-white">Crear Instalación</a>
+								<form th:action="@{/administrativo/gestion-instalacion}">
+									<input class="form-control" name="nombre"
+										placeholder="Buscar por nombre">
 
 								</form>
 
@@ -68,54 +68,52 @@
 								<table class="table">
 									<thead>
 										<tr>
-											<th>rut</th>
-											<th>Nombre completo</th>
-											<th>Email</th>
+											<th>Nombre</th>
+											<th>Dirección</th>
+											<th>Tipo</th>
+											<th>Costo/día</th>
 											<th>Estado</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:if="${usuarios.isEmpty()}">
+										<tr th:if="${instalaciones.isEmpty()}">
 											<th colspan="5" class="text-center">Sin registro</th>
 										</tr>
-										<tr th:unless="${usuarios.isEmpty()}"
-											th:each="usuario : ${usuarios}">
-											<th th:text="${usuario.rut}" scope="row">1</th>
-											<td th:text="${usuario.nombre + ' ' + usuario.apellido}">Mark</td>
-											<td th:text="${usuario.email}">Otto</td>
-											<td th:if="${usuario.estado == 1}" class="text-success">Habilitado</td>
-											<td th:unless="${usuario.estado == 1}" class="text-danger">Deshabilitado</td>
-											<td><a
-												th:href="@{/administrador/gestion-adm/editar/{rut} (rut=${usuario.rut})}"
-												class="btn btn-warning btn-sm py-0"><small>Editar</small></a>  <a
-												th:onclick="return ventana([[${usuario.nombre} + ' ' + ${usuario.apellido}]],[[${usuario.estado}]])"
-												th:href="@{/administrador/gestion-adm/estado/{rut} (rut=${usuario.rut})}"
-												class="btn btn-info btn-sm py-0"><small>Cambiar Estado</small></a></td>
+										<tr th:unless="${instalaciones.isEmpty()}"
+											th:each="instalacion : ${instalaciones}">
+											<th th:text="${instalacion.nombre}" scope="row">1</th>
+											<td th:text="${instalacion.direccion}">Mark</td>
+											<td th:text="${instalacion.tipo}">Otto</td>
+											<td th:text="${instalacion.precio}">Otto</td>
+											<td th:if="${instalacion.estado == 1}" class="text-success">Operativa</td>
+											<td th:unless="${instalacion.estado == 1}"
+												class="text-danger">Inoperativa</td>
+											<td><a class="btn btn-warning btn-sm py-0"><small>Editar</small></a></td>
 										</tr>
 									</tbody>
 								</table>
-								<nav th:if="${usuarios.totalPages > 0}"
+								<nav th:if="${instalaciones.totalPages > 0}"
 									aria-label="Page navigation example">
 									<ul class="pagination justify-content-center">
 										<li class="page-item"
-											th:classappend="${usuarios.number == 0 ? 'disabled' : ''}">
+											th:classappend="${instalaciones.number == 0 ? 'disabled' : ''}">
 											<a
-											th:href="@{/administrador/gestion-adm(page=${usuarios.number - 1})}"
+											th:href="@{/administrativo/gestion-instalacion(page=${instalaciones.number - 1})}"
 											class="page-link">Anterior</a>
 										</li>
 
 										<li class="page-item"
-											th:classappend="${i eq usuarios.number + 1} ? 'active'"
-											th:each="i : ${#numbers.sequence( 1, usuarios.totalPages, 1)}">
+											th:classappend="${i eq instalaciones.number + 1} ? 'active'"
+											th:each="i : ${#numbers.sequence( 1, instalaciones.totalPages, 1)}">
 											<a class="page-link"
-											th:href="@{/administrador/gestion-adm?page={tmpPag} (tmpPag=${i-1}) }"
+											th:href="@{/administrativo/gestion-instalacion?page={tmpPag} (tmpPag=${i-1}) }"
 											th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
 										</li>
 										<li class="page-item"
-											th:classappend="${usuarios.number == (usuarios.totalPages - 1) ? 'disabled' : ''}">
+											th:classappend="${instalaciones.number == (instalaciones.totalPages - 1) ? 'disabled' : ''}">
 											<a
-											th:href="@{/administrador/gestion-adm(page=${usuarios.number + 1})}"
+											th:href="@{/administrativo/gestion-instalacion(page=${instalaciones.number + 1})}"
 											class="page-link">Siguiente</a>
 										</li>
 									</ul>

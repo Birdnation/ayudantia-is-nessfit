@@ -37,7 +37,7 @@
 					<div class="page-title">
 						<div class="title_left">
 
-							<h3>Gestión de Administrativos</h3>
+							<h3>Gestión de Clientes</h3>
 
 
 						</div>
@@ -53,9 +53,9 @@
 					<div class="col-md-12 col-sm-12  ">
 						<div class="x_panel">
 							<div class="x_title d-flex justify-content-start">
-								<a th:href="@{/administrador/gestion-adm/crear}"
+								<a th:href="@{/administrativo/gestion-cliente/crear}"
 									class="btn btn-success text-white">Crear Usuario</a>
-								<form th:action="@{/administrador/gestion-adm}">
+								<form th:action="@{/administrativo/gestion-cliente}">
 									<input class="form-control" name="rut"
 										placeholder="Buscar por rut">
 
@@ -90,7 +90,7 @@
 												th:href="@{/administrador/gestion-adm/editar/{rut} (rut=${usuario.rut})}"
 												class="btn btn-warning btn-sm py-0"><small>Editar</small></a>  <a
 												th:onclick="return ventana([[${usuario.nombre} + ' ' + ${usuario.apellido}]],[[${usuario.estado}]])"
-												th:href="@{/administrador/gestion-adm/estado/{rut} (rut=${usuario.rut})}"
+												th:href="@{/administrativo/gestion-cliente/estado/{rut} (rut=${usuario.rut})}"
 												class="btn btn-info btn-sm py-0"><small>Cambiar Estado</small></a></td>
 										</tr>
 									</tbody>

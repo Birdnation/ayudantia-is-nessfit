@@ -8,7 +8,7 @@
 			<div class="col-md-3 left_col menu_fixed">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i
+						<a th:href="@{/}" class="site_title"><i
 							class="fa fa-futbol-o"></i> <span>Nessfit</span></a>
 					</div>
 					
@@ -60,9 +60,10 @@
 												<div class="clearfix"></div>
 											</div>
 											<div class="x_content">
-												<button type="button" class="btn btn-primary btn-sm">
-													<i class="fa fa-user"> </i> Ir
-												</button>
+												<a th:href="@{/administrativo/gestion-cliente}"
+													class="btn btn-primary btn-sm"> <i class="fa fa-user">
+												</i> IR
+												</a>
 											</div>
 										</div>
 									</div>
@@ -90,6 +91,51 @@
 											</div>
 											<div class="x_content text-white">
 												<a th:href="@{/administrador/gestion-adm}"
+													class="btn btn-primary btn-sm"> <i class="fa fa-user">
+												</i> IR
+												</a>
+											</div>
+										</div>
+									</div>
+									<div sec:authorize="hasAuthority('ADMINISTRATIVO')"
+										class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Gestión de Instalaciones</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<a th:href="@{/administrativo/gestion-instalacion}"
+													class="btn btn-primary btn-sm"> <i class="fa fa-user">
+												</i> IR
+												</a>
+											</div>
+										</div>
+									</div>
+									<div sec:authorize="hasAuthority('CLIENTE')"
+										class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Solicitud de Arriendo</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<a th:href="@{/cliente/solicitudes/crear}"
+													class="btn btn-primary btn-sm"> <i class="fa fa-user">
+												</i> IR
+												</a>
+											</div>
+										</div>
+									</div>
+									<div sec:authorize="hasAuthority('CLIENTE')"
+										class="col-md-3 col-sm-3  ">
+										<div class="x_panel">
+											<div class="x_title">
+												<h2>Ver mis solicitudes</h2>
+												<div class="clearfix"></div>
+											</div>
+											<div class="x_content">
+												<a th:href="@{/cliente/solicitudes}"
 													class="btn btn-primary btn-sm"> <i class="fa fa-user">
 												</i> IR
 												</a>

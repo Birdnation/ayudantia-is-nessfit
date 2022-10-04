@@ -19,7 +19,37 @@
     <link th:href="@{/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css}" rel="stylesheet"/>
     <!-- iCheck -->
    <link th:href="@{/vendors/iCheck/skins/flat/green.css}" rel="stylesheet">
-
+	<!-- multiDatePick -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Custom Theme Style -->
     <link th:href="@{/build/css/custom.min.css}" rel="stylesheet">
+    
+    <style type="text/css">
+    .datepicker {
+	width: 300px;
+	height: 300px;
+	margin: 5px auto 0;
+	font: 12pt Arial, sans-serif;
+	/*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);*/
+}
+
+.datepicker table {
+	width: 100%;
+}
+
+.datepicker-header {
+	background: #3399ff;
+	color: #ffffff;
+	font-family: 'Times New Roman';
+	border-width: 1px 0 0 0;
+	border-style: solid;
+	border-color: #111;
+}
+
+.datepicker-title {
+	text-align: center;
+	font-size: 15px;
+}
+    </style>
   </head>

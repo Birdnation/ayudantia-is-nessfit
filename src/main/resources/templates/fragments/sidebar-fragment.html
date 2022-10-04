@@ -3,11 +3,11 @@
 	<div class="menu_section">
 		<h3>General</h3>
 		<ul class="nav side-menu">
-			<li><a><i class="fa fa-home"></i> Inicio</a></li>
-			<li><a><i class="fa fa-edit"></i> Gestión clientes</a></li>
-			<li><a><i class="fa fa-desktop"></i> Gestión Administrativos
+			<li><a th:href="@{/}"><i class="fa fa-home"></i> Inicio</a></li>
+			<li sec:authorize="hasAuthority('ADMINISTRATIVO')"><a><i class="fa fa-edit"></i> Gestión clientes</a></li>
+			<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a th:href="@{/administrador/gestion-adm}"><i class="fa fa-desktop"></i> Gestión Administrativos
 			</a></li>
-			<li sec:authorize="hasAuthority('ADMINISTRATIVO')"><a><i class="fa fa-table"></i> Perfil <span
+			<li><a><i class="fa fa-table"></i> Perfil <span
 					class="fa fa-chevron-down"></span></a>
 				<ul class="nav child_menu">
 					<li><a href="#">Ver mi perfil</a></li>

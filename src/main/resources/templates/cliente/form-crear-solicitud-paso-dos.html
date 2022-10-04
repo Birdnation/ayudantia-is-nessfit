@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head-fragment :: head">
+</head>
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0;">
+						<a href="index.html" class="site_title"><i
+							class="fa fa-futbol-o"></i> <span>Nessfit</span></a>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<!-- menu profile quick info -->
+					<div th:insert="fragments/perfil-fragment :: perfil"></div>
+					<!-- /menu profile quick info -->
+
+					<br />
+
+					<!-- sidebar menu -->
+					<div th:insert="fragments/sidebar-fragment :: sidebar"></div>
+					<!-- /sidebar menu -->
+
+
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<div th:replace="fragments/topbar-fragment :: topbar"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>Creación de Solicitud</h3>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+								<div class="x_content">
+									<br />
+									<form th:action="@{/cliente/solicitudes/crear}" method="post"
+										id="demo-form2" data-parsley-validate
+										class="form-horizontal form-label-left" th:object="${renta}">
+
+										<div th:if="${#fields.hasErrors('*')}"
+											class='alert alert-danger' role='alert'>
+											Por favor corrija los siguientes errores:
+											<ul>
+												<li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+											</ul>
+										</div>
+
+										<input type="hidden" th:field="*{usuario}"> <input
+											type="hidden" th:field="*{instalacion}"> <input
+											type="hidden" th:field="*{fechaCreacion}"> <input
+											type="hidden" th:field="*{estado}"> <input
+											type="hidden" th:field="*{diasSolicitud}"> <input
+											type="hidden" id="my_hidden_input" name="dias">
+
+
+										<div class="item form-group">
+											<div class="col-md-12 col-sm-12">
+												<h5>
+													Instalación Seleccionada: <span
+														th:text="${renta.instalacion.nombre}"></span>
+												</h5>
+												<p class="my-0">
+													<b>Dirección:</b> <span
+														th:text="${renta.instalacion.direccion}"></span>
+												</p>
+												<p class="my-0">
+													<b>Precio por día:</b> <span
+														th:text="${'$' + renta.instalacion.precio}"></span>
+												</p>
+												<p class="my-0">
+													<b>Solicitante:</b> <span th:text="${renta.usuario.nombre}"></span>
+												</p>
+											</div>
+										</div>
+
+										<div class="ln_solid"></div>
+										<div class="row item form-group justify-content-md-center">
+											<div class="col col-4 border rounded border-primary" id="datepicker"></div>
+											<div class="col col-8">
+												<p class="row">* Selecciona la fecha a solicitar</p>
+												<p class="row">* Los dias solicitados quedan sujetos a
+													revisión</p>
+												<p class="row">* Aprobada la solcitud se le informará a
+													su correo electrónico</p>
+													<p class="row text-danger">* Las fechas seleccionables estan disponibles para arriendo. Las fechas bloqueadas ya se encuentran arrendadas.</p>
+											</div>
+										
+
+										</div>
+
+
+
+
+
+
+										<div class="ln_solid"></div>
+										<div class="item form-group">
+											<div class="col-md-6 col-sm-6 offset-md-3">
+												<button class="btn btn-primary" type="button"
+													onclick="window.history.back();">Atras</button>
+												<button type="submit" class="btn btn-success">Enviar</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /page content -->
+
+		<!-- footer content -->
+		<footer>
+			<div class="clearfix"></div>
+		</footer>
+		<!-- /footer content -->
+	</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- iCheck -->
+	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/build/js/custom.min.js}"></script>
+
+
+	<!-- Custom multidatepicker script -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+		integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"
+		integrity="sha512-5pjEAV8mgR98bRTcqwZ3An0MYSOleV04mwwYj2yw+7PBhFVf/0KcE+NEox0XrFiU5+x5t5qidmo5MgBkDD9hEw=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+	<script th:inline="javascript">
+		let diasNoHabilitados = []
+		/*<![CDATA[*/
+
+		/*[# th:each="rent : ${rentas}"]*/
+
+		/*[# th:each="dias : ${rent.diasSolicitud}"]*/
+		diasNoHabilitados.push(new Date(/*[[${dias}]]*/));
+		/*[/]*/
+
+		/*[/]*/
+
+		/*]]>*/
+
+		console.log(diasNoHabilitados);
+
+		$('#datepicker').datepicker({
+			multidate : true,
+			format : "dd-mm-yyyy",
+			language : "es",
+			todayBtn : true,
+			clearBtn : true,
+			title : "Selecciona los días a solicitar",
+			startDate : new Date(Date.now() + (3600 * 1000 * 24)),
+			datesDisabled : diasNoHabilitados,
+			autoSize : true,
+			todayHighlight : true
+		});
+
+		$('#datepicker').on(
+				'changeDate',
+				function() {
+					$('#my_hidden_input').val(
+							$('#datepicker').datepicker('getFormattedDate'));
+				});
+	</script>
+
+</body>
+</html>
