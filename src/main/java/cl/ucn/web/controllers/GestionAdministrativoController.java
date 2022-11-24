@@ -66,7 +66,7 @@ public class GestionAdministrativoController {
 	// Envío a template mediante el model
 	model.addAttribute("usuario", usuario);
 	// redirección
-	return "/administrador/form-editar-administrativo";
+	return "administrador/form-editar-administrativo";
     }
 
     @PostMapping("/editar/{rut}")
@@ -76,7 +76,7 @@ public class GestionAdministrativoController {
 	// result.rejectValue("rut", null, "rut inválido");
 
 	if (result.hasErrors()) {
-	    return "/administrador/form-editar-administrativo";
+	    return "administrador/form-editar-administrativo";
 	}
 
 	// paso 2 set atributos no ingresados por usuario
@@ -95,7 +95,7 @@ public class GestionAdministrativoController {
 
     @GetMapping("/crear")
     public String formUsuario(Usuario usuario) {
-	return "/administrador/form-crear-administrativo";
+	return "administrador/form-crear-administrativo";
     }
 
     @PostMapping("/crear")
@@ -111,7 +111,7 @@ public class GestionAdministrativoController {
 	}
 
 	if (result.hasErrors()) {
-	    return "/administrador/form-crear-administrativo";
+	    return "administrador/form-crear-administrativo";
 	}
 
 	// paso 2 set atributos no ingresados por usuario
