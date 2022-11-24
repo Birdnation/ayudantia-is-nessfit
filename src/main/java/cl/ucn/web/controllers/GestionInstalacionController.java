@@ -33,7 +33,7 @@ public class GestionInstalacionController {
 
     @GetMapping("/crear")
     public String formUsuario(Instalacion instalacion) {
-	return "/administrativo/form-crear-instalacion";
+	return "administrativo/form-crear-instalacion";
     }
 
     @PostMapping("/crear")
@@ -43,7 +43,7 @@ public class GestionInstalacionController {
 	// result.rejectValue("rut", null, "rut inválido");
 
 	if (result.hasErrors()) {
-	    return "/administrativo/form-crear-instalacion";
+	    return "administrativo/form-crear-instalacion";
 	}
 
 	// paso 2 persistencia

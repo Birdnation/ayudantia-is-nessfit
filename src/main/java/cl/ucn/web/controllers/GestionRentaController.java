@@ -55,7 +55,7 @@ public class GestionRentaController {
 	    model.addAttribute("piscinas", instalacionService.verInstalacionesPorTipo(TipoInstalacion.Piscina));
 	    model.addAttribute("quinchos", instalacionService.verInstalacionesPorTipo(TipoInstalacion.Quincho));
 	    model.addAttribute("estadios", instalacionService.verInstalacionesPorTipo(TipoInstalacion.Estadio));
-	    return "/cliente/form-crear-solicitud";
+	    return "cliente/form-crear-solicitud";
 	}
 
 	if (instalacionService.buscarPorNombre(instalacion) == null
@@ -65,7 +65,7 @@ public class GestionRentaController {
 	    model.addAttribute("piscinas", instalacionService.verInstalacionesPorTipo(TipoInstalacion.Piscina));
 	    model.addAttribute("quinchos", instalacionService.verInstalacionesPorTipo(TipoInstalacion.Quincho));
 	    model.addAttribute("estadios", instalacionService.verInstalacionesPorTipo(TipoInstalacion.Estadio));
-	    return "/cliente/form-crear-solicitud";
+	    return "cliente/form-crear-solicitud";
 	}
 
 	renta.setFechaCreacion(new Date());
@@ -76,7 +76,7 @@ public class GestionRentaController {
 
 	model.addAttribute("rentas", rentaService.buscarPorInstalacionAndEstado(instalacion, 1));
 
-	return "/cliente/form-crear-solicitud-paso-dos";
+	return "cliente/form-crear-solicitud-paso-dos";
 
     }
 

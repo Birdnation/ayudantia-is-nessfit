@@ -49,7 +49,7 @@ public class GestionClienteController {
 
     @GetMapping("/crear")
     public String formUsuario(Usuario usuario) {
-	return "/administrativo/form-crear-cliente";
+	return "administrativo/form-crear-cliente";
     }
 
     @PostMapping("/crear")
