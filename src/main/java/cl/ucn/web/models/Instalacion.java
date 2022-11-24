@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "instalaciones")
@@ -18,6 +20,8 @@ public class Instalacion implements Serializable {
     private String nombre;
     private String direccion;
     private TipoInstalacion tipo;
+    @Min(value = 0)
+    @Max(value = 1)
     private Integer estado; // 0: inoperativa 1:operativa
     private Integer precio;
 

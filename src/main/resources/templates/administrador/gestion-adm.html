@@ -88,10 +88,13 @@
 											<td th:unless="${usuario.estado == 1}" class="text-danger">Deshabilitado</td>
 											<td><a
 												th:href="@{/administrador/gestion-adm/editar/{rut} (rut=${usuario.rut})}"
-												class="btn btn-warning btn-sm py-0"><small>Editar</small></a>  <a
+												class="btn btn-warning btn-sm py-0"><small>Editar</small></a>  
+												
+												<a
 												th:onclick="return ventana([[${usuario.nombre} + ' ' + ${usuario.apellido}]],[[${usuario.estado}]])"
 												th:href="@{/administrador/gestion-adm/estado/{rut} (rut=${usuario.rut})}"
-												class="btn btn-info btn-sm py-0"><small>Cambiar Estado</small></a></td>
+												class="btn btn-info btn-sm py-0"><small>Cambiar
+														Estado</small></a></td>
 										</tr>
 									</tbody>
 								</table>

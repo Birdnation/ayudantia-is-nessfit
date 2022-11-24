@@ -61,8 +61,11 @@ public class GestionAdministrativoController {
 
     @GetMapping("/editar/{rut}")
     public String formEditar(@PathVariable(value = "rut") String rut, Model model) {
+	// Busqueda de usuario a editar
 	Usuario usuario = usuarioService.buscarPorRut(rut);
+	// Envío a template mediante el model
 	model.addAttribute("usuario", usuario);
+	// redirección
 	return "/administrador/form-editar-administrativo";
     }
 

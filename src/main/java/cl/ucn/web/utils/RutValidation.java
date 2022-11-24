@@ -1,5 +1,7 @@
 package cl.ucn.web.utils;
 
+import java.util.regex.Pattern;
+
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -19,9 +21,16 @@ public class RutValidation implements Validator {
 	Usuario usuario = (Usuario) target;
 
 	// lógica para validar
+	// errors.rejectValue("rut", null, "Formato de rut incorrecto");
 
-	// errors.rejectValue("rut", null, "rut no válido");
+    }
 
+    public Boolean validarFormato(String rut) {
+	String pattern = "^(\\d{1,2}(\\d{3}){2}[\\dkK])$";
+	if (Pattern.matches(pattern, rut)) {
+	    return true;
+	}
+	return false;
     }
 
 }

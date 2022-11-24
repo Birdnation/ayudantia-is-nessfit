@@ -28,6 +28,7 @@ public class Renta implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "dias_solicitados")
     @ElementCollection(targetClass = Date.class)
     private List<Date> diasSolicitud;

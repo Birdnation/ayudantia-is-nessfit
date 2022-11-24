@@ -48,24 +48,25 @@ public class HomeController {
     @PostMapping("/perfil")
     public String perfilForm(@Valid Usuario usuario, BindingResult result, Model model) {
 
+	// Paso 1.- Usuario logeado en sistema
 	Usuario usuarioAuth = usuarioService
 		.buscarPorRut(SecurityContextHolder.getContext().getAuthentication().getName());
 
-	// Paso 1.-Validaciones
+	// Paso 2.-Validaciones
 	if (result.hasErrors()) {
 	    return "perfil";
 	}
 
-	// Paso 2.- Set´s
+	// Paso 3.- Set´s
 	usuarioAuth.setNombre(usuario.getNombre());
 	usuarioAuth.setApellido(usuario.getApellido());
 	usuarioAuth.setEmail(usuario.getEmail());
 	usuarioAuth.setTelefono(usuario.getTelefono());
 
-	// Paso 3.- Persistencia
+	// Paso 4.- Persistencia
 	usuarioService.guardar(usuarioAuth);
 
-	// Paso 4.- Redireccion
+	// Paso 5.- Redireccion
 	return "redirect:/";
     }
 

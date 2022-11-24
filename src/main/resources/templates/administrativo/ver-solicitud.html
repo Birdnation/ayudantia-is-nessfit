@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head-fragment :: head">
+</head>
+
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col menu_fixed">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0;">
+						<a th:href="@{/}" class="site_title"><i class="fa fa-futbol-o"></i>
+							<span>Nessfit</span></a>
+					</div>
+
+
+					<div class="clearfix"></div>
+
+					<!-- menu profile quick info -->
+					<div th:insert="fragments/perfil-fragment :: perfil"></div>
+					<!-- /menu profile quick info -->
+
+					<br />
+
+					<!-- sidebar menu -->
+					<div th:insert="fragments/sidebar-fragment :: sidebar"></div>
+					<!-- /sidebar menu -->
+
+
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<div th:replace="fragments/topbar-fragment :: topbar"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+							<h3>
+								Solicitud N° <small th:text="${solicitud.id}"></small>
+							</h3>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="x_panel">
+								<div class="x_title">
+									<h2>
+										Detalle Solicitud
+									</h2>
+									
+									<div class="clearfix"></div>
+								</div>
+								<div class="x_content">
+
+									<section class="content invoice">
+										<!-- title row -->
+										
+										<!-- info row -->
+										<div class="row invoice-info">
+											<div class="col-sm-3 invoice-col">
+												Fecha Creación
+												<p>
+													<strong th:text="${#dates.format(solicitud.fechaCreacion,'dd-MM-yyyy')}">09-10-2022</strong>
+												</p>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-9 invoice-col">
+												Estado de la solicitud
+												<p>
+													<strong th:text="${solicitud.estado == 0 ? 'Pendiente': 'Aprobado'}">Pendiente</strong>
+												</p>
+											</div>
+											<!-- /.col -->
+										</div>
+										<!-- /.row -->
+										<hr>
+										<div class="clearfix"></div>
+										
+										<!-- info row -->
+										<div class="row invoice-info">
+											<div class="col-sm-3 invoice-col">
+												Cliente
+												<p>
+													<strong th:text="${solicitud.usuario.nombre + ' ' + solicitud.usuario.apellido}">Rodrigo Dominguez</strong>
+												</p>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-3 invoice-col">
+												Rut
+												<p>
+													<strong th:text="${solicitud.usuario.rut}">173922825</strong>
+												</p>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-3 invoice-col">
+												Teléfono
+												<p><strong th:text="${solicitud.usuario.telefono}">234544</strong></p>
+												
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-3 invoice-col">
+												Email
+												<p><strong th:text="${solicitud.usuario.email}">cliente@nessfit.cl</strong></p>
+												
+											</div>
+											<!-- /.col -->
+										</div>
+										<!-- /.row -->
+										<hr>
+										<div class="clearfix"></div>
+										
+										<!-- info row -->
+										<div class="row invoice-info">
+											<div class="col-sm-3 invoice-col">
+												Centro Deportivo
+												<p>
+													<strong th:text="${solicitud.instalacion.tipo}">Piscina</strong>
+												</p>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-3 invoice-col">
+												Nombre
+												<p>
+													<strong th:text="${solicitud.instalacion.nombre}">Piscina Municipal</strong>
+												</p>
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-3 invoice-col">
+												Dirección
+												<p><strong th:text="${solicitud.instalacion.direccion}">Av. Grecia 2294</strong></p>
+												
+											</div>
+											<!-- /.col -->
+											<div class="col-sm-3 invoice-col">
+												Precio/Día
+												<p>$ <strong th:text="${solicitud.instalacion.precio}"> 12000</strong></p>
+												
+											</div>
+											<!-- /.col -->
+										</div>
+										<!-- /.row -->
+
+										<!-- Table row -->
+										<h4>Días solicitados</h4>
+										<div class="row">
+											<div class="  table">
+												<table class="table table-striped">
+													<thead>
+														<tr>
+															<th>#</th>
+															<th>Día</th>
+															<th>Detalle</th>
+															<th class="text-center">Valor</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="dia,index : ${solicitud.diasSolicitud}">
+															<td th:text="${index.count}">1</td>
+															<td th:text="${#dates.format(dia,'EEEE, dd MMMM yyyy')}">Call of Duty</td>
+															<td>Arriendo día <span th:text="${solicitud.instalacion.nombre}"></span></td>
+															<td align="right" th:text="${'$ ' + T(java.lang.String).format('%,d',solicitud.instalacion.precio)}">$1400</td>
+
+														</tr>
+													</tbody>
+													<tfoot>
+														<tr>
+															<td colspan="4" align="right">Total a Pagar $ <strong th:text="${T(java.lang.String).format('%,d',solicitud.monto)}"> 140000</strong></td>
+														</tr>
+													</tfoot>
+												</table>
+											</div>
+											<!-- /.col -->
+										</div>
+										<!-- /.row -->
+
+										
+
+										<!-- this row will not appear when printing -->
+										<div class="row no-print">
+											<div class=" ">
+												<button class="btn btn-default" onclick="window.print();">
+													<i class="fa fa-print"></i> Print
+												</button>
+												<button class="btn btn-primary pull-right"
+													style="margin-right: 5px;">
+													<i class="fa fa-download"></i> Generate PDF
+												</button>
+											</div>
+										</div>
+									</section>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /page content -->
+
+			<!-- footer content -->
+			<footer>
+				<div class="clearfix"></div>
+			</footer>
+			<!-- /footer content -->
+		</div>
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- jQuery custom content scroller -->
+	<script
+		th:src="@{/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js}"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/build/js/custom.min.js}"></script>
+</body>
+</html>

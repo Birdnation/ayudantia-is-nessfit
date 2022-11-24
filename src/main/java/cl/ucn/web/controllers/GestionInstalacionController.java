@@ -41,20 +41,15 @@ public class GestionInstalacionController {
 
 	// paso 1 validaciones
 	// result.rejectValue("rut", null, "rut inválido");
-	// Instalacion existe = instalacionService.
-
-//	if (existe != null) {
-//	    result.rejectValue("rut", null, "Rut existente en la base de datos");
-//	}
 
 	if (result.hasErrors()) {
-	    return "administrativo/form-crear-cliente";
+	    return "/administrativo/form-crear-instalacion";
 	}
 
-	// paso 3 persistencia
+	// paso 2 persistencia
 	instalacionService.guardar(instalacion);
 
-	// paso 4 redireccionamiento
+	// paso 3 redireccionamiento
 	return "redirect:/administrativo/gestion-instalacion";
     }
 

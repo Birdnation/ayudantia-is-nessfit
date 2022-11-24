@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/head-fragment :: head">
+<body class="nav-md">
+	<div class="container body">
+		<div class="main_container">
+			<div class="col-md-3 left_col">
+				<div class="left_col scroll-view">
+					<div class="navbar nav_title" style="border: 0;">
+						<a href="index.html" class="site_title"><i
+							class="fa fa-futbol-o"></i> <span>Nessfit</span></a>
+					</div>
+
+					<div class="clearfix"></div>
+
+					<!-- menu profile quick info -->
+					<div th:insert="fragments/perfil-fragment :: perfil"></div>
+					<!-- /menu profile quick info -->
+
+					<br />
+
+					<!-- sidebar menu -->
+					<div th:insert="fragments/sidebar-fragment :: sidebar"></div>
+					<!-- /sidebar menu -->
+
+
+				</div>
+			</div>
+
+			<!-- top navigation -->
+			<div th:replace="fragments/topbar-fragment :: topbar"></div>
+			<!-- /top navigation -->
+
+			<!-- page content -->
+			<div class="right_col" role="main">
+				<div class="">
+					<div class="page-title">
+						<div class="title_left">
+
+							<h3>Mis Solicitudes</h3>
+
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+				<div class="clearfix"></div>
+
+				<div class="row" style="display: block;">
+					<div class="col-md-12 col-sm-12  ">
+						<div class="x_panel">
+							<div class="x_title d-flex justify-content-start">
+								<form>
+									<input class="form-control" name="nombre"
+										placeholder="Buscar por N° Solicitud">
+
+								</form>
+								<a class="btn btn-danger text-white mx-4" th:href="@{/cliente/solicitudes/pdf-print (format=pdf)}">PDF</a>
+
+								<div class="clearfix"></div>
+							</div>
+							<div class="x_content">
+
+								<table class="table">
+									<thead>
+										<tr>
+											<th>N° Solicitud</th>
+											<th>Fecha solicitud</th>
+											<th>Centro deportivo</th>
+											<th>Estado</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${rentas.isEmpty()}">
+											<th colspan="5" class="text-center">Sin registro</th>
+										</tr>
+										<tr th:unless="${rentas.isEmpty()}"
+											th:each="renta : ${rentas}">
+											<th th:text="${renta.id}" scope="row">1</th>
+											<td th:text="${renta.fechaCreacion}">Mark</td>
+											<td th:text="${renta.instalacion.nombre}">Otto</td>
+											<td th:if="${renta.estado == 0}" th:text="'Pendiente'" class="text-warning"></td>
+											<td th:if="${renta.estado == 1}" th:text="'Aprobado'" class="text-success"></td>
+											<td th:if="${renta.estado == 2}" th:text="'Rechazada'" class="text-danger"></td>
+											<td><a th:href="@{/cliente/solicitudes/{id} (id=${renta.id})}" class="btn btn-info btn-sm py-0"><small>Ver Detalles</small></a></td>
+										</tr>
+									</tbody>
+								</table>
+								<nav th:if="${rentas.totalPages > 0}"
+									aria-label="Page navigation example">
+									<ul class="pagination justify-content-center">
+										<li class="page-item"
+											th:classappend="${rentas.number == 0 ? 'disabled' : ''}">
+											<a
+											th:href="@{/cliente/solicitudes(page=${rentas.number - 1})}"
+											class="page-link">Anterior</a>
+										</li>
+
+										<li class="page-item"
+											th:classappend="${i eq rentas.number + 1} ? 'active'"
+											th:each="i : ${#numbers.sequence( 1, rentas.totalPages, 1)}">
+											<a class="page-link"
+											th:href="@{/cliente/solicitudes?page={tmpPag} (tmpPag=${i-1}) }"
+											th:text="${i}" th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+										</li>
+										<li class="page-item"
+											th:classappend="${rentas.number == (rentas.totalPages - 1) ? 'disabled' : ''}">
+											<a
+											th:href="@{/cliente/solicitudes(page=${rentas.number + 1})}"
+											class="page-link">Siguiente</a>
+										</li>
+									</ul>
+								</nav>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /page content -->
+
+		<!-- footer content -->
+		<footer>
+			<div class="clearfix"></div>
+		</footer>
+		<!-- /footer content -->
+	</div>
+
+	<!-- jQuery -->
+	<script th:src="@{/vendors/jquery/dist/jquery.min.js}"></script>
+	<!-- Bootstrap -->
+	<script th:src="@{/vendors/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
+	<!-- FastClick -->
+	<script th:src="@{/vendors/fastclick/lib/fastclick.js}"></script>
+	<!-- NProgress -->
+	<script th:src="@{/vendors/nprogress/nprogress.js}"></script>
+	<!-- iCheck -->
+	<script th:src="@{/vendors/iCheck/icheck.min.js}"></script>
+
+	<!-- Custom Theme Scripts -->
+	<script th:src="@{/build/js/custom.min.js}"></script>
+</body>
+</html>

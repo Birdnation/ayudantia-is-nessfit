@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cl.ucn.web.models.Instalacion;
+import cl.ucn.web.models.TipoInstalacion;
 import cl.ucn.web.repositories.IInstalacionRepository;
 
 @Service
@@ -19,7 +20,6 @@ public class InstalacionServiceImpl implements IInstalacionService {
     @Override
     public void guardar(Instalacion instalacion) {
 	instalacionRepository.save(instalacion);
-
     }
 
     @Override
@@ -36,9 +36,13 @@ public class InstalacionServiceImpl implements IInstalacionService {
     public Instalacion buscarPorNombre(String nombre) {
 	if (instalacionRepository.findById(nombre).isPresent()) {
 	    return instalacionRepository.findById(nombre).get();
-	} else {
-	    return null;
 	}
+	return null;
+    }
+
+    @Override
+    public List<Instalacion> verInstalacionesPorTipo(TipoInstalacion tipo) {
+	return instalacionRepository.findByTipo(tipo);
     }
 
 }

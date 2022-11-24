@@ -84,21 +84,21 @@
 														th:text="${'$' + renta.instalacion.precio}"></span>
 												</p>
 												<p class="my-0">
-													<b>Solicitante:</b> <span th:text="${renta.usuario.nombre}"></span>
+													<b>Solicitante:</b> <span th:text="${renta.usuario.nombre + ' ' + renta.usuario.apellido}"></span>
 												</p>
 											</div>
 										</div>
 
 										<div class="ln_solid"></div>
 										<div class="row item form-group justify-content-md-center">
-											<div class="col col-4 border rounded border-primary" id="datepicker"></div>
+											<div class="col col-4 border rounded border-primary shadow-lg" id="datepicker"></div>
 											<div class="col col-8">
 												<p class="row">* Selecciona la fecha a solicitar</p>
 												<p class="row">* Los dias solicitados quedan sujetos a
 													revisión</p>
 												<p class="row">* Aprobada la solcitud se le informará a
 													su correo electrónico</p>
-													<p class="row text-danger">* Las fechas seleccionables estan disponibles para arriendo. Las fechas bloqueadas ya se encuentran arrendadas.</p>
+													<p class="row text-danger">* Las fechas seleccionables estan disponibles para arriendo. Las fechas bloqueadas ya se encuentran arrendadas. La elección de los días quedan sujetas a revisión previa.</p>
 											</div>
 										
 
@@ -170,15 +170,14 @@
 
 		/*[# th:each="rent : ${rentas}"]*/
 
-		/*[# th:each="dias : ${rent.diasSolicitud}"]*/
-		diasNoHabilitados.push(new Date(/*[[${dias}]]*/));
+		/*[# th:each="dia : ${rent.diasSolicitud}"]*/
+		diasNoHabilitados.push(new Date(/*[[${dia}]]*/));
 		/*[/]*/
 
 		/*[/]*/
 
 		/*]]>*/
 
-		console.log(diasNoHabilitados);
 
 		$('#datepicker').datepicker({
 			multidate : true,
@@ -198,6 +197,7 @@
 				function() {
 					$('#my_hidden_input').val(
 							$('#datepicker').datepicker('getFormattedDate'));
+					console.log($('#my_hidden_input').val())
 				});
 	</script>
 
